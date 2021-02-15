@@ -24,12 +24,14 @@ class MainActivity : AppCompatActivity() {
         val suma: Button= findViewById(R.id.btnSumar) as Button
         val dividir: Button= findViewById(R.id.btnDividir) as Button
         val restar: Button= findViewById(R.id.btnRestar) as Button
+        val multiplicar: Button= findViewById(R.id.btnMultiplicar) as Button
         val resultado: Button= findViewById(R.id.btnResult) as Button
         val borrar: Button= findViewById(R.id.btnBorrar) as Button
         var operacion: String
         var num1:String =""
         var num2:String =""
         var res:Float =0.0f
+        var delimiter = ""
 
         uno.setOnClickListener(){
         val process=input.text.toString()
@@ -72,15 +74,59 @@ class MainActivity : AppCompatActivity() {
             input.setText(process+"0")
         }
         suma.setOnClickListener(){
+
             val process=input.text.toString()
-            num1=process
+            delimiter = "+"
+
             input.setText(process+"+")
 
         }
-        resultado.setOnClickListener(){
+        restar.setOnClickListener(){
+
             val process=input.text.toString()
-            res=(num1.toInt()+num2.toInt()).toFloat()
-            input.setText(process+"+")
+            delimiter = "-"
+
+            input.setText(process+"-")
+
+        }
+        dividir.setOnClickListener(){
+
+            val process=input.text.toString()
+            delimiter = "/"
+
+            input.setText(process+"/")
+
+        }
+        multiplicar.setOnClickListener(){
+
+            val process=input.text.toString()
+            delimiter = "*"
+
+            input.setText(process+"*")
+
+        }
+        borrar.setOnClickListener(){
+
+            val process=input.text.toString()
+            delimiter = ""
+
+            input.setText("")
+            calc.setText("")
+
+        }
+        resultado.setOnClickListener(){
+
+            val process=input.text.toString()
+            var str = process
+            var operacion=""
+            val parts = str.split(delimiter,ignoreCase = true)
+            when(delimiter){
+                "+" -> res=parts[0].toFloat() + parts[1].toFloat()
+                "-" -> res=parts[0].toFloat() - parts[1].toFloat()
+                "/" -> res=parts[0].toFloat() / parts[1].toFloat()
+                "*" -> res=parts[0].toFloat() * parts[1].toFloat()
+            }
+            calc.setText(res.toString())
 
         }
 
